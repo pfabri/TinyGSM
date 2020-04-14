@@ -18,16 +18,18 @@
 #define TINY_GSM_MODEM_SIM800
 
 // Increase RX buffer if needed
-//#define TINY_GSM_RX_BUFFER 512
+#if !defined(TINY_GSM_RX_BUFFER)
+#define TINY_GSM_RX_BUFFER 512
+#endif
 
 #include <TinyGsmClient.h>
 #include <ArduinoHttpClient.h>
 
 // Uncomment this if you want to see all AT commands
-//#define DUMP_AT_COMMANDS
+// #define DUMP_AT_COMMANDS
 
 // Uncomment this if you want to use SSL
-//#define USE_SSL
+// #define USE_SSL
 
 // Set serial for debug console (to the Serial Monitor, speed 115200)
 #define SerialMon SerialUSB
@@ -96,7 +98,7 @@ void loop() {
     delay(10000);
     return;
   }
-  SerialMon.println(" OK");
+  SerialMon.println(" success");
 
   SerialMon.print(F("Connecting to "));
   SerialMon.print(apn);
@@ -105,7 +107,7 @@ void loop() {
     delay(10000);
     return;
   }
-  SerialMon.println(" OK");
+  SerialMon.println(" success");
 
   SerialMon.print(F("Performing HTTP GET request... "));
   int err = http.get(resource);
@@ -157,4 +159,3 @@ void loop() {
     delay(1000);
   }
 }
-
